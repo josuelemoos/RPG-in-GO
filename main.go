@@ -96,13 +96,15 @@ func beginning() {
 	fmt.Println("who are you?... u just arrived here")
 
 	player = creatingCharacter()
+	insertCharacters(db, "player", player)
 
-	fmt.Println("well well, u are", player.Name, " i can tell")
+	fmt.Println("well well, u are", player.Name, " and ", state(player)," i can tell")
 	fmt.Println("what are u hopping to find here? the day is getting darker...")
 	fmt.Println("but i see. u are a traveler, i can see in your eyes, u want to go to\nNIRVYNYA dont you?")
 	fmt.Println("u want to see the beaches, the dogs running, the sound of the water waves hitting the rocks")
 	fmt.Println("but is impossible right now... The Big Bull of time is on the path")
 	fmt.Println("U NEED TO DEFEAT HIM!!!!!!!!!!!!!!!!")
+	fight(player, db)
 }
 
 func theMiddle(p *Character) {

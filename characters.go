@@ -9,7 +9,7 @@ type Character struct{
 	health int
 }
 
-func (p *Personagen) Class() string{
+func state(p *Personagen) Class() string{
 	if p.strong > 5 {
 		return " powerfull! "
 	}else if p.inteligence > 6 {

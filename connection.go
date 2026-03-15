@@ -64,6 +64,26 @@ func createTables(db *sql.DB) {
 			Furtive INT,
 			Charisma INT
 		);`,
+		`CREATE TABLE IF NOT EXISTS player (
+			id INTEGER PRIMARY KEY,
+			name TEXT,
+			class TEXT,
+			Strong INT,
+			Intelligence INT,
+			Health INT,
+			Furtive INT,
+			Charisma INT
+		);`,
+		`CREATE TABLE IF NOT EXISTS attack (
+			id INTEGER PRIMARY KEY,
+			name TEXT,
+			class TEXT,
+			Strong INT,
+			Intelligence INT,
+			Furtive INT,
+			Charisma INT,
+			Damage INT
+		);`,
 	}
 
 	for _, q := range queries {
@@ -108,6 +128,28 @@ func insertCharacters(db *sql.DB, table string, chars []Character) {
 
 	for _, c := range chars {
 		_, err := db.Exec(query, c.Name, c.Class, c.Strong, c.Intelligence, c.Health, c.Furtive, c.Charisma)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+}
+
+func insertUsuarios(db *sql.DB) {
+	usuarios := []Character{
+		{Name: "Goblin Scout", Class: "Rogue", Strong: 5, Intelligence: 4, Furtive: 10, Charisma: 3, Damage: 1},
+		{Name: "Orc Warrior", Class: "Warrior", Strong: 11, Intelligence: 3, Furtive: 4, Charisma: 2, Damage: 1},
+		{Name: "Skeleton Soldier", Class: "Undead", Strong: 7, Intelligence: 2, Furtive: 3, Charisma: 1, Damage: 1},
+	}
+
+	insertttacks(db, "usuarios", usuarios)
+}
+
+func insertAttacks(db *sql.DB, table string, chars []Character) {
+	query := fmt.Sprintf(`INSERT INTO %s (name, class, Strong, Intelligence, Furtive, Charisma, Damage)
+		VALUES (?, ?, ?, ?, ?, ?, ?)`, table)
+
+	for _, c := range chars {
+		_, err := db.Exec(query, c.Name, c.Class, c.Strong, c.Intelligence, c.Furtive, c.Charisma, c.Damage)
 		if err != nil {
 			log.Fatal(err)
 		}
